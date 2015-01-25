@@ -1,0 +1,50 @@
+<!--
+* index.html
+* 2015, Masuda Michiori
+* 
+* Display streaming temperature data from server with on/off control.
+-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Streaming Temperature</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js" type="text/javascript"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js" type="text/javascript"></script>
+        <script type="text/javascript" src="smoothie_mm.js"></script>
+    </head>
+    <body>
+        <canvas id="mycanvas" width="400" height="200"></canvas>
+        <script type="text/javascript" src="/socket.io/socket.io.js"></script>
+        <script type="text/javascript">
+            var smoothie = new SmoothieChart();
+            smoothie.streamTo(document.getElementById("mycanvas"));//start rendering, then keep rendering
+            var line1 = new TimeSeries();
+            smoothie.addTimeSeries(line1);//attach the TimeSeries data to the chart
+
+            $(function () {
+                var socket = io.connect();
+                socket.on('connect', function () {
+                    socket.on('msg', function (msg) {// recieve data on "msg" event
+                        var message = JSON.parse(msg);
+                        line1.append(message.time, message.temperature);// add new data to the TimeSeries data
+                        console.log(message.temperature);
+                    });
+                });
+
+                //'on' click start display
+                $("#btn01").click(function () {
+                    socket.emit('on'); // emit 'on' event without any data
+                });
+                //'off' click pause display
+                $("#btn02").click(function () {
+                    socket.emit('off'); // emit 'off' event without any data
+                });
+            });
+        </script>
+        <div id='test01'>start display</div>
+        <input type='button' id='btn01' value='OK'/>
+        <div id='test02'>pause display</div>
+        <input type='button' id='btn02' value='OK'/>
+    </body>
+</html>
