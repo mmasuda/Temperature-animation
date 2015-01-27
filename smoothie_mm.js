@@ -492,8 +492,8 @@
   SmoothieChart.prototype.updateValueRange = function() {
     // Calculate the current scale of the chart, from all time series.
     var chartOptions = this.options,
-        chartMaxValue = 25,//Number.NaN Masuda
-        chartMinValue = 15;//Number.NaN Masuda
+        chartMaxValue = Number.NaN, //25  Masuda
+        chartMinValue = Number.NaN; //15  Masuda
 
     for (var d = 0; d < this.seriesSet.length; d++) {
       // TODO(ndunn): We could calculate / track these values as they stream in.

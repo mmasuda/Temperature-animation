@@ -17,10 +17,10 @@
         <canvas id="mycanvas" width="400" height="200"></canvas>
         <script type="text/javascript" src="/socket.io/socket.io.js"></script>
         <script type="text/javascript">
-            var smoothie = new SmoothieChart();
+            var smoothie = new SmoothieChart({grid:{strokeStyle:'#ff0000'},labels:{fontSize:14},minValue:15, maxValue:25,timestampFormatter:SmoothieChart.timeFormatter}); // set fixed y-axis,with time stamp
             smoothie.streamTo(document.getElementById("mycanvas"));//start rendering, then keep rendering
             var line1 = new TimeSeries();
-            smoothie.addTimeSeries(line1);//attach the TimeSeries data to the chart
+            smoothie.addTimeSeries(line1,{lineWidth:2,strokeStyle:'#00ff00'});//attach the TimeSeries data to the chart, green line
 
             $(function () {
                 var socket = io.connect();

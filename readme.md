@@ -30,4 +30,6 @@
 
 ### Known issues
 * get_temperature.jsにおいて、socket.broadcast.emitだけでは、ブラウザからindex.htmlを2度読み込まないと、ブラウザがデータ受信されない。この回避のために、socket.emitを追加している。（原因不明）  
-* smoothie_mm.jsにおいて、y軸表示範囲を495-6行に直値で設定している。この範囲を超えても自動的に表示範囲を拡大するが、一旦拡大後に初期値を下回ると、表示範囲は初期を下回る。（直値でない設定方法も含めて今後の課題）
+* smoothie_mm.jsにおいて、y軸表示範囲を495-6行に直値で設定している。この範囲を超えても自動的に表示範囲を拡大するが、一旦拡大後に初期値を下回ると、表示範囲は初期を下回る。（直値でない設定方法も含めて今後の課題）  
+（27.Jan,2015）--> optionの引数の与え方が分かりましたので、smoothie_mm.js内の直値設定をやめて、index.htmlでnew SmoothieChartの引数として与えることにしました。optionの内容と与え方は、[SmoothieChartBuilder](http://smoothiecharts.org/builder/)で触ってみて、その時のjsコードを見れば分かります。  
+色や表示速度などいろいろ触れますので楽しんでください。最新版では、grid表示とtime stamp表示を追加し、データ表示を緑色にしてます。
