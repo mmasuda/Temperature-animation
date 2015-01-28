@@ -14,11 +14,11 @@
 * [Smoothie Charts](http://smoothiecharts.org/),[johnny-five](https://github.com/rwaldron/johnny-five)の著作権の扱いについては、それぞれのコードを参照の事。
   
 ### ファイル構成と配置  
-* サーバ側：node.js実行場所に、/get_temperature.js
+* サーバ側：node.js実行場所に、/streaming_temp.js
 * クライアント側：node.js実行場所/public/に、index.html　と　smoothie_mm.js
   
 ### 操作、及び、オプション
-* サーバ側：$node get_temperature.jsを起動、クライアントはサーバの初期化完了後に起動の事。初期化はコンソールで確認できる。
+* サーバ側：$node streaming_temp.jsを起動、クライアントはサーバの初期化完了後に起動の事。初期化はコンソールで確認できる。
 * クライアント側：localhost:8080（同一PCで実行時）
 ,  http://ip_address:8080/index.html（ネットワーク経由の場合）
 * クライアントでのy軸表示範囲をsmoothie_mm.jsの495-6行で設定（最大25度、最小15度）
@@ -29,7 +29,7 @@
 * クライアント側:chrome/windows8.1 40.0.2214.91,Safari/iOS 8.1.2
 
 ### Known issues
-* get_temperature.jsにおいて、socket.broadcast.emitだけでは、ブラウザからindex.htmlを2度読み込まないと、ブラウザがデータ受信されない。この回避のために、socket.emitを追加している。（原因不明）  
+* streaming_temp.jsにおいて、socket.broadcast.emitだけでは、ブラウザからindex.htmlを2度読み込まないと、ブラウザがデータ受信されない。この回避のために、socket.emitを追加している。（原因不明）  
 * smoothie_mm.jsにおいて、y軸表示範囲を495-6行に直値で設定している。この範囲を超えても自動的に表示範囲を拡大するが、一旦拡大後に初期値を下回ると、表示範囲は初期を下回る。（直値でない設定方法も含めて今後の課題）  
 （27.Jan,2015）--> optionの引数の与え方が分かりましたので、smoothie_mm.js内の直値設定をやめて、index.htmlでnew SmoothieChartの引数として与えることにしました。optionの内容と与え方は、[SmoothieChartBuilder](http://smoothiecharts.org/builder/)で触ってみて、その時のjsコードを見れば分かります。  
 色や表示速度などいろいろ触れますので楽しんでください。最新版では、grid表示とtime stamp表示を追加し、データ表示を緑色にしてます。
